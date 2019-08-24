@@ -1,0 +1,17 @@
+{
+  "name": "lesson-one",
+  "version": "1.0.0",
+  "description": "a firstnode lesson",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "simonbassey",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "eslint": "^6.1.0",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1"
+  }
+}
