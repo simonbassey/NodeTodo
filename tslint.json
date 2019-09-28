@@ -1,0 +1,22 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+        "trailing-comma":false,
+        "member-ordering":false,
+        "no-console":false,
+        "ordered-imports": false,
+        "one-line":false,
+        "max-line-length": false,
+        "no-string-literal": false,
+        "variable-name": {
+            "options":["allow-leading-underscore", "check-format","ban-keywords", "require-const-for-all-caps"]
+        },
+        "object-literal-sort-keys":false,
+        "interface-name":false
+    },
+    "rulesDirectory": []
+}
