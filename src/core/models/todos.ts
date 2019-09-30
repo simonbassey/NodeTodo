@@ -1,14 +1,15 @@
 export default class TodoItem {
     public title: string;
     public description: string;
-    private id: string;
+    public _id?: string;
 
-    public set setId(id1: any) {
-        this.id = id1;
+    constructor() {}
+    public setId(id: any): void {
+        this._id = id;
     }
 
     get Id(): string {
-        return this.id;
+        return this._id;
     }
 }
 

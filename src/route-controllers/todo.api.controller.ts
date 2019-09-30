@@ -28,13 +28,13 @@ router.post("/api/todos/create", async (req, res) => {
         if (validationErrors.length > 0) {
             return res.status(400).json(validationErrors);
         }
-        if (todoExist(payload.title)) {
+        if (await todoExist(payload.title)) {
             return res.status(400).json(`A similar activity with the same title '${payload.title}' already exist`);
         }
         const result = await todoRepository.addTodo(payload);
         return  !result ? res.status(204).send() : res.status(201).send(result);
     }
-    catch(exception) {
+    catch (exception) {
         return res.status(500).send(exception);
     }
 });
@@ -75,4 +75,4 @@ async function todoExist(title: string): Promise<boolean> {
     return (await todoRepository.getTodoByTitle(title)) != null;
 }
 
-module.exports = router;
+export default router;

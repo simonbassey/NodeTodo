@@ -39,7 +39,7 @@ class TodoRepository {
     public async getTodos(): Promise<any> {
         try {
             const db = await this.connect();
-            const todos = await db.collection(this._todoCollection).find({}).project({title : 1, description : 1, _id: 1 }).toArray();
+            const todos = await db.collection<TodoItem>(this._todoCollection).find({}).project({title : 1, description : 1, _id: 1 }).toArray();
             console.log(todos);
             return todos;
         }
@@ -92,7 +92,7 @@ class TodoRepository {
         }
     }
 
-    public async RemoveTodo(id: any, item: TodoItem) {
+    public async RemoveTodo(id: any, item: TodoItem = null) {
         try {
             const db = await this.connect();
             const collection = db.collection<TodoItem>(this._todoCollection);

@@ -8,9 +8,9 @@ import todoApiRouteController from "./route-controllers/todo.api.controller";
 const port = process.env.port || 3000;
 const app = express();
 
-app.use(morgan());
+app.use(morgan("common"));
 app.use(bodyParser.json());
 
-app.use('/', todoApiRouteController);
+app.use("/", todoApiRouteController);
 
 app.listen(port, () => { console.log(`Server started .. listening on port ${port}`)});
