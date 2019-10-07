@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import express from "express";
 import morgan from "morgan";
 
-import todoApiRouteController from "./route-controllers/todo.api.controller";
+import todoApiRouteController from "./api/routes/todo.api.route";
 
 const port = process.env.port || 3000;
 const app = express();

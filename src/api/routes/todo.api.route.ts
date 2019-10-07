@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
-import TodoRepository from "./../core/data/todo.repository";
-import {TodoMongooseRepository} from "./../core/data/todo.mongoose.repository";
-import TodoItem from "./../core/models/todos";
-import { TodoDocument } from "../core/models/domain/todo.model";
+import TodoRepository from "../../core/data/todo.repository";
+import {TodoMongooseRepository} from "../../core/data/todo.mongoose.repository";
+import TodoItem from "../../core/models/todos";
+import { TodoDocument } from "../../core/models/domain/todo.model";
 
 const router = express.Router();
 // const todoRepository = new TodoRepository();
