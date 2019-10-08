@@ -1,0 +1,7 @@
+{
+    "ConnectionString": {},
+    "Logs": {
+        "error":"./Logs/Errors",
+        "trace": "./Logs/Trace"
+    }
+}
