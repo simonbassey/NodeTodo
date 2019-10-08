@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 import { DbContstants } from "./../common/db.constants";
 import {TodoModel, UserDocument, TodoDocument} from "./../models/domain/todo.model";
+import { Logger } from "../services/logger.service";
 
 export class TodoMongooseRepository {
     /**
@@ -34,6 +35,7 @@ export class TodoMongooseRepository {
     public async getTodos(): Promise<TodoDocument[]> {
         try {
             const todos = await TodoModel.find({}).sort({createdDate: 1}).exec();
+            Logger.Info(todos);
             return todos;
         }
         catch (error) {
