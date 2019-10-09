@@ -7,12 +7,6 @@ import { TodoDocument } from "../../core/models/domain/todo.model";
 const router = express.Router();
 // const todoRepository = new TodoRepository();
 const todoRepository = new TodoMongooseRepository();
-router.get("/", (req, res) => {
-    const welcomeMsg = `Hello ${req.ip} .. Welcome to classic Todo API`;
-    res.write(welcomeMsg);
-    res.end();
-});
-
 router.get("/api/todos", (req, res) => {
     todoRepository.getTodos().then(
         (response) => {
