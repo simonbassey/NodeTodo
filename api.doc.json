@@ -1,0 +1,63 @@
+{
+    "openapi":"3.0.1",
+    "info": {
+        "title": "NodeTodo",
+        "description":"Node/Typescript API project starter pack",
+        "contact": {
+            "name": "simonbassey",
+            "email":"simon.dev.bassey@gmail.com",
+            "url":"https://github.com/simonbassey"
+        },
+        "licences": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "schemes":["http"],
+    "host": "http://localhost:3000",
+    "basePath":"http://localhost:3000/api",
+    "paths":{
+        "/todos": {
+            "get": {
+                "summary":"Get Todo List",
+                "description": "Returns a list of todos",
+                "responses": {
+                    "200": {
+                        "description": "A list of available todos",
+                        "content": {
+                            "application/json": {
+                              "schema": {
+                                "type": "array",
+                                "$ref": "#/components/schemas/TodoItems"
+                              }
+                            }
+                          }
+                    }
+                }
+
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "TodoItem": {
+                "type":"object",
+                "properties": {
+                    "completed": {
+                        "type": "boolean"
+                    },
+                    "_id": { "type": "string"},
+                    "title": { "type": "string"},
+                    "description": { "type": "string"},
+                    "userId": { "type": "string"},
+                    "createdDate": { "type": "date"},
+                    "lastUpdated": { "type": "date"}
+                }
+            },
+            "TodoItems": {
+                "type": "array",
+                "$ref":"#/components/schemas/TodoItem"
+            }
+        }
+    }
+}
