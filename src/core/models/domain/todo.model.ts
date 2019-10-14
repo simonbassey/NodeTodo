@@ -13,13 +13,15 @@ const todoItemSchema =  new mongoose.Schema({
 const userSchema = new mongoose.Schema({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
-    emailAddress: {type: String, required: true, index: true}
+    emailAddress: {type: String, required: true, index: true},
+    passowrd: {type: String, required: true}
 });
 
 export interface UserDocument extends Document {
     firstName: string;
     lastName: string;
     emailAddress: string;
+    passowrd: string;
 }
 
 export interface TodoDocument extends Document {

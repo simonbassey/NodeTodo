@@ -5,7 +5,6 @@ import TodoItem from "../../core/models/todos";
 import { TodoDocument } from "../../core/models/domain/todo.model";
 
 const router = express.Router();
-// const todoRepository = new TodoRepository();
 const todoRepository = new TodoMongooseRepository();
 router.get("/api/todos", (req, res) => {
     todoRepository.getTodos().then(

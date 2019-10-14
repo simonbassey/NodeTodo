@@ -1,3 +1,5 @@
+import { UserDocument } from "./domain/todo.model";
+
 export default class TodoItem {
     public title: string;
     public description: string;
@@ -17,4 +19,14 @@ export interface DbActionResult {
     status: boolean;
     message: string;
     details?: any;
+}
+
+export interface SignInResult {
+    status: boolean;
+    data: UserDocument;
+}
+
+export interface AuthenticationResult  {
+    isAuthenticated: boolean;
+    info: UserDocument | any;
 }

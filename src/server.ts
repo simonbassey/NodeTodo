@@ -15,7 +15,7 @@ app.use(morgan("common"));
 app.use(bodyParser.json());
 
 app.use("/", todoApiRouteController);
-app.use("/api-docs/", swaggerUi.serve, swaggerUi.setup(swaggerApiDoc));
+app.use("/api-docs/", swaggerUi.serve, swaggerUi.setup(swaggerApiDoc, {explorer: true}));
 
 Logger.ConfigureLogger();
 app.listen(port, () => { console.log(`Server started .. listening on port ${port}`)});

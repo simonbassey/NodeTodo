@@ -18,6 +18,7 @@
     "basePath":"http://localhost:3000/api",
     "paths":{
         "/api/todos": {
+            "summary": "Todos",
             "get": {
                 "summary":"Get Todo List",
                 "description": "Returns a list of todos",
@@ -28,13 +29,53 @@
                             "application/json": {
                               "schema": {
                                 "type": "array",
-                                "$ref": "#/components/schemas/TodoItems"
+                                "items": {"$ref": "#/components/schemas/TodoItem"}
                               }
                             }
                           }
                     }
                 }
-
+            }
+        },
+        "/api/todos/{id}": {
+            "get":{
+                "summary": "Gets a Todo",
+                "description": "Gets the details of a todo by the provided Id",
+                "parameters": {
+                    "name": "id",
+                    "in": "path",
+                    "required": "true",
+                    "description": "The Id of the todo to update",
+                    "type": "string"
+                },
+                "responses":{
+                    "200": {
+                        "description": "A Todo documents",
+                        "content": {
+                            "application/json": {
+                              "schema": {
+                                "type": "object",
+                                "$ref": "#/components/schemas/TodoItem"
+                              }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/todos/create": {
+            "post": {
+                "summary": "Create a new Todo",
+                "description": "Creates and returns a new Todo list",
+                "requestBody": {
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "$ref":"#/components/schemas/TodoCreateRequest"
+                            }
+                        }
+                    }
+                }
             }
         }
     },
@@ -54,9 +95,13 @@
                     "lastUpdated": { "type": "date"}
                 }
             },
-            "TodoItems": {
-                "type": "array",
-                "$ref":"#/components/schemas/TodoItem"
+            "TodoCreateRequest": {
+                "type":"object",
+                "properties": {
+                    "status": {"type": "boolean"},
+                    "title": { "type": "string"},
+                    "description": { "type": "string"}
+                }
             }
         }
     }
