@@ -25,8 +25,7 @@ export class UserRepository {
 
     public async addUser(doc: UserDocument ): Promise<UserDocument> {
         try {
-            const _salt = new Buffer(`${[doc.lastName]}${doc.firstName}`).toString("base64");
-            doc.password = Util.Hash("sha512", doc.password, _salt);
+            doc.password = await Util.BcryptHash(doc.password);
             const saveResult = await UserModel.create(doc);
             delete saveResult.__v;
             delete saveResult.id;

@@ -18,9 +18,8 @@ export class AuthService {
                 return {isAuthenticated: false, info: null};
             }
             const user = users[0];
-            const _salt = new Buffer(`${[user.lastName]}${user.firstName}`).toString("base64");
-            const pwHash = Util.Hash("sha512", password, _salt);
-            return {isAuthenticated: user.password === pwHash, info: user.password !== pwHash ? null : user};
+            const isValidPassword = await Util.BcryptCompare(password, user.password);
+            return {isAuthenticated: isValidPassword, info: isValidPassword ? user : null};
         }
         catch (error) {
             throw error;
