@@ -22,11 +22,18 @@ export interface DbActionResult {
 }
 
 export interface SignInResult {
-    status: boolean;
-    data: UserDocument;
+    accessToken: string;
+    refreshToken: string;
 }
 
 export interface AuthenticationResult  {
     isAuthenticated: boolean;
     info: UserDocument | any;
+}
+
+export interface JwtAuthObj {
+    userId: string;
+    email: string;
+    provider: string;
+    name: string;
 }

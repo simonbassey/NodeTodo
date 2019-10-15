@@ -1,12 +1,13 @@
-import express, { Request, Response } from "express";
-import TodoRepository from "../../core/data/todo.repository";
+import express, { Response } from "express";
 import {TodoMongooseRepository} from "../../core/data/todo.mongoose.repository";
-import TodoItem from "../../core/models/todos";
 import { TodoDocument } from "../../core/models/domain/todo.model";
+import {authorize} from "../../core/services/middlewares/auth.middleware";
+import { Request } from "express-serve-static-core";
 
 const router = express.Router();
 const todoRepository = new TodoMongooseRepository();
-router.get("/api/todos", (req, res) => {
+router.use(authorize);
+router.get("/", (req, res) => {
     todoRepository.getTodos().then(
         (response) => {
             return res.status(200).json(response);
@@ -17,7 +18,7 @@ router.get("/api/todos", (req, res) => {
     );
 });
 
-router.post("/api/todos/create", async (req, res) => {
+router.post("/create", async (req, res) => {
     try {
         const payload: any = { title: req.body["title"], description: req.body["description"], userId: req.body["userId"]};
         const validationErrors = validateReqPayload(payload);
@@ -35,7 +36,7 @@ router.post("/api/todos/create", async (req, res) => {
     }
 });
 
-router.get("/api/todos/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
     try {
         const id = req.params.id;
         const todo = await todoRepository.getTodo(id);
@@ -46,7 +47,7 @@ router.get("/api/todos/:id", async (req, res) => {
     }
 });
 
-router.put("/api/todos/:id/update", async (req, res) => {
+router.put("/:id/update", async (req, res) => {
     try {
         const id = req.params.id;
         const payload = {title: req.body["title"], description: req.body["description"], completed: req.body["completed"], userId: req.body["userId"]} as TodoDocument;
@@ -65,7 +66,7 @@ router.put("/api/todos/:id/update", async (req, res) => {
     }
 });
 
-router.delete("/api/todos/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
     try {
         const _id = req.params.id;
         const deleted = await todoRepository.deleteTodo(_id);

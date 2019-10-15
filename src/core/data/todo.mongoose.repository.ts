@@ -13,7 +13,7 @@ export class TodoMongooseRepository {
 
     private async _doDbConnection() {
         mongoose.connect(DbContstants.Connection.devConnectionString);
-        mongoose.connection.on(`open`, (err, res) => {
+        mongoose.connection.on(`open`, (err: any, res: any) => {
             if (err) {
                 console.log(`Encountered an error while connecting to database on ${DbContstants.Connection.devConnectionString}`);
             } else {

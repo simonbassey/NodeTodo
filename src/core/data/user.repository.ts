@@ -14,7 +14,7 @@ export class UserRepository {
 
     private async _doDbConnection() {
         mongoose.connect(DbContstants.Connection.devConnectionString);
-        mongoose.connection.on(`open`, (err, res) => {
+        mongoose.connection.on(`open`, (err: any, res: any) => {
             if (err) {
                 console.log(`Encountered an error while connecting to database on ${DbContstants.Connection.devConnectionString}`);
             } else {
@@ -25,7 +25,8 @@ export class UserRepository {
 
     public async addUser(doc: UserDocument ): Promise<UserDocument> {
         try {
-            doc.passowrd = Util.Hash("sha512", doc.passowrd);
+            const _salt = new Buffer(`${[doc.lastName]}${doc.firstName}`).toString("base64");
+            doc.password = Util.Hash("sha512", doc.password, _salt);
             const saveResult = await UserModel.create(doc);
             delete saveResult.__v;
             delete saveResult.id;

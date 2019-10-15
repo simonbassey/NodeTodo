@@ -14,14 +14,14 @@ const userSchema = new mongoose.Schema({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
     emailAddress: {type: String, required: true, index: true},
-    passowrd: {type: String, required: true}
+    password: {type: String, required: true}
 });
 
 export interface UserDocument extends Document {
     firstName: string;
     lastName: string;
     emailAddress: string;
-    passowrd: string;
+    password: string;
 }
 
 export interface TodoDocument extends Document {

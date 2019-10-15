@@ -1,6 +1,10 @@
+import jwt from "jsonwebtoken";
 import {UserRepository} from "../data/user.repository";
 import {Util} from "./utils.service";
-import {AuthenticationResult, SignInResult} from "../models/todos";
+import {AuthenticationResult, SignInResult, JwtAuthObj} from "../models/todos";
+import { UserDocument } from "../models/domain/todo.model";
+import { Settings } from "./settings.service";
+
 export class AuthService {
     private _userRepository: UserRepository;
     constructor() {
@@ -9,21 +13,34 @@ export class AuthService {
 
     public async AuthenticateUser(username: string, password: string): Promise<AuthenticationResult> {
         try {
-
-            const pwHash = Util.Hash("sha512", password);
-            const user = (await this._userRepository.filterUsers({email: username, password: pwHash}))[0];
-            if (!user) {
+            const users = (await this._userRepository.filterUsers({emailAddress: username}));
+            if (!users || users.length < 1) {
                 return {isAuthenticated: false, info: null};
             }
-            return {isAuthenticated: true, info: user};
+            const user = users[0];
+            const _salt = new Buffer(`${[user.lastName]}${user.firstName}`).toString("base64");
+            const pwHash = Util.Hash("sha512", password, _salt);
+            return {isAuthenticated: user.password === pwHash, info: user.password !== pwHash ? null : user};
         }
         catch (error) {
             throw error;
         }
     }
 
-    public async SignInUser(username: string, password: string): Promise<SignInResult> {
-        return Promise.resolve({status: false, data: null});
+    public SignInUser(signedInUser: UserDocument): SignInResult {
+        try {
+            if (!signedInUser) {
+                throw new Error("Cnnot signIn a non valid user object");
+            }
+            const _appAuthSecret = Settings.authSecret;
+            const authObj: JwtAuthObj = {userId: signedInUser.id, email: signedInUser.emailAddress, provider: "email", name: `${signedInUser.firstName} ${signedInUser.lastName}`};
+            const token = jwt.sign(authObj, _appAuthSecret);
+            const refreshToken = new Buffer(signedInUser.password).toString("base64");
+            return {accessToken: token, refreshToken};
+        }
+        catch (error) {
+            throw error;
+        }
     }
 
 }
