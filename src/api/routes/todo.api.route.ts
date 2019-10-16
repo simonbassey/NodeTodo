@@ -3,19 +3,27 @@ import {TodoMongooseRepository} from "../../core/data/todo.mongoose.repository";
 import { TodoDocument } from "../../core/models/domain/todo.model";
 import {authorize} from "../../core/services/middlewares/auth.middleware";
 import { Request } from "express-serve-static-core";
+import { AuthenticatedRequest } from "../helpers/request.helper";
 
 const router = express.Router();
 const todoRepository = new TodoMongooseRepository();
 router.use(authorize);
-router.get("/", (req, res) => {
-    todoRepository.getTodos().then(
-        (response) => {
-            return res.status(200).json(response);
-        },
-        (error) => {
-            return res.status(500).send(error);
-        }
-    );
+router.get("/", (req: AuthenticatedRequest, res) => {
+    try {
+        const user = req.User;
+        console.log("user logged here -> ", user);
+        todoRepository.getTodos().then(
+            (response) => {
+                return res.status(200).json(response);
+            },
+            (error) => {
+                return res.status(500).send(error);
+            }
+        );
+    }
+    catch (error) {
+        res.status(500).send(error);
+    }
 });
 
 router.post("/create", async (req, res) => {

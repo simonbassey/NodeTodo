@@ -1,13 +1,13 @@
-import express from "express";
+import express, {Request, Response, NextFunction} from "express";
 import { AuthService } from "../../core/services/auth.service";
 import { Logger } from "../../core/services/logger.service";
-import {UserDocument} from "../../core/models/domain/todo.model";
+import {UserDocument} from "../../core/models/domain/user.model";
 import { UserRepository } from "../../core/data/user.repository";
 const accountRouter = express.Router();
 
 const _authService: AuthService = new AuthService();
 const _userRepository: UserRepository = new UserRepository();
-accountRouter.post("/auth", async (req, res) => {
+accountRouter.post("/auth", async (req: Request, res: Response, next: NextFunction) => {
     try {
         const userName = req.body["username"];
         const password = req.body["password"];
@@ -15,8 +15,8 @@ accountRouter.post("/auth", async (req, res) => {
         if (!result.isAuthenticated) {
             return res.status(400).send(`Incorrect username or password`);
         }
-        // go ahead and signIn user with jwt and add the neccessary tokens to the middleware
-        const signedInResult = _authService.SignInUser(result.info);
+        // go ahead and create jwtToken and add the neccessary tokens to the middleware
+        const signedInResult = _authService.createJwtToken(result.info);
         return res.status(200).send(signedInResult);
     }
     catch (error) {
