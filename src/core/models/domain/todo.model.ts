@@ -10,19 +10,7 @@ const todoItemSchema =  new mongoose.Schema({
     lastUpdated: {type: Date}
 });
 
-const userSchema = new mongoose.Schema({
-    firstName: {type: String, required: true},
-    lastName: {type: String, required: true},
-    emailAddress: {type: String, required: true, index: true},
-    password: {type: String, required: true}
-});
 
-export interface UserDocument extends Document {
-    firstName: string;
-    lastName: string;
-    emailAddress: string;
-    password: string;
-}
 
 export interface TodoDocument extends Document {
     title: string;
@@ -32,5 +20,4 @@ export interface TodoDocument extends Document {
     createdDate: Date;
     lastUpdated: Date;
 }
-export const UserModel = mongoose.model<UserDocument>(DbContstants.Users, userSchema);
 export const TodoModel =  mongoose.model<TodoDocument>(DbContstants.Todos, todoItemSchema);

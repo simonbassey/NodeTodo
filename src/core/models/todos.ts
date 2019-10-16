@@ -1,4 +1,4 @@
-import { UserDocument } from "./domain/todo.model";
+import { UserDocument } from "./domain/user.model";
 
 export default class TodoItem {
     public title: string;
@@ -19,21 +19,4 @@ export interface DbActionResult {
     status: boolean;
     message: string;
     details?: any;
-}
-
-export interface SignInResult {
-    accessToken: string;
-    refreshToken: string;
-}
-
-export interface AuthenticationResult  {
-    isAuthenticated: boolean;
-    info: UserDocument | any;
-}
-
-export interface JwtAuthObj {
-    userId: string;
-    email: string;
-    provider: string;
-    name: string;
 }
