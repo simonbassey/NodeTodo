@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 import {UserRepository} from "../data/user.repository";
 import {Util} from "./utils.service";
-import {AuthenticationResult, SignInResult, JwtAuthObj} from "../models/todos";
-import { UserDocument } from "../models/domain/todo.model";
+import {AuthenticationResult, SignInResult, JwtAuthObj} from "../models/domain/user.model";
+import { UserDocument } from "../models/domain/user.model";
 import { Settings } from "./settings.service";
 
 export class AuthService {
@@ -26,14 +26,14 @@ export class AuthService {
         }
     }
 
-    public SignInUser(signedInUser: UserDocument): SignInResult {
+    public createJwtToken(signedInUser: UserDocument): SignInResult {
         try {
             if (!signedInUser) {
-                throw new Error("Cnnot signIn a non valid user object");
+                throw new Error("Cannot signIn a non valid user object");
             }
             const _appAuthSecret = Settings.authSecret;
             const authObj: JwtAuthObj = {userId: signedInUser.id, email: signedInUser.emailAddress, provider: "email", name: `${signedInUser.firstName} ${signedInUser.lastName}`};
-            const token = jwt.sign(authObj, _appAuthSecret);
+            const token = jwt.sign(authObj, _appAuthSecret, {expiresIn: "15m"});
             const refreshToken = new Buffer(signedInUser.password).toString("base64");
             return {accessToken: token, refreshToken};
         }
