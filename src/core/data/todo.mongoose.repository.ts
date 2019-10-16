@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 import { DbContstants } from "./../common/db.constants";
-import {TodoModel, UserDocument, TodoDocument} from "./../models/domain/todo.model";
+import {TodoModel, TodoDocument} from "./../models/domain/todo.model";
 import { Logger } from "../services/logger.service";
 
 export class TodoMongooseRepository {

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 import { DbContstants } from "../common/db.constants";
-import {TodoModel, UserDocument, TodoDocument, UserModel} from "../models/domain/todo.model";
+import {UserDocument, UserModel} from "../models/domain/user.model";
 import { Logger } from "../services/logger.service";
 import {Util} from "../services/utils.service";
 
@@ -82,7 +82,7 @@ export class UserRepository {
 
     public async deleteUser(id: string): Promise<boolean> {
         try {
-            return await TodoModel.findByIdAndRemove(id).exec() != null;
+            return await UserModel.findByIdAndRemove(id).exec() != null;
         }
         catch (error) {
             throw error;
