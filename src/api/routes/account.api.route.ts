@@ -5,7 +5,7 @@ import {UserDocument} from "../../core/models/domain/user.model";
 import { UserRepository } from "../../core/data/user.repository";
 const accountRouter = express.Router();
 
-const _authService: AuthService = new AuthService();
+const _authService: AuthService = new AuthService(new UserRepository()); // Introduce Dependency Injection
 const _userRepository: UserRepository = new UserRepository();
 accountRouter.post("/auth", async (req: Request, res: Response, next: NextFunction) => {
     try {

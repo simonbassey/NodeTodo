@@ -6,9 +6,7 @@ import { UserDocument } from "../models/domain/user.model";
 import { Settings } from "./settings.service";
 
 export class AuthService {
-    private _userRepository: UserRepository;
-    constructor() {
-        this._userRepository = new UserRepository();
+    constructor(private _userRepository: UserRepository) {
     }
 
     public async AuthenticateUser(username: string, password: string): Promise<AuthenticationResult> {

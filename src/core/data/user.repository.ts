@@ -63,7 +63,7 @@ export class UserRepository {
         }
     }
 
-    public async updateTodo(userId: string, updateInfo: UserDocument | any): Promise<boolean> {
+    public async updateUser(userId: string, updateInfo: UserDocument | any): Promise<boolean> {
         try {
             const user = await this.getUser(userId);
             if (!user) {
@@ -72,7 +72,6 @@ export class UserRepository {
             user.firstName = user.firstName;
             user.lastName = user.lastName;
             const res = await UserModel.updateOne({_id: userId}, user).exec();
-            Logger.Info(`user update result -> ` + res);
             return !res ? false : true;
         }
         catch (error) {
