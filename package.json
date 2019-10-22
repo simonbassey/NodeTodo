@@ -4,7 +4,7 @@
   "description": "a firstnode lesson",
   "main": "dist/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "lint": "eslint .",
     "build-ts": "tsc",
     "start": "npm run serve",
@@ -37,13 +37,17 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.3",
     "@types/mocha": "^5.2.7",
     "@types/morgan": "^1.7.37",
+    "@types/sinon": "^7.5.0",
+    "chai": "^4.2.0",
     "eslint": "^6.2.2",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "mocha": "^6.2.2",
     "nodemon": "^1.19.1",
+    "sinon": "^7.5.0",
     "tslint": "^5.20.0",
     "typescript": "^3.6.3"
   },
