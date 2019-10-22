@@ -16,7 +16,8 @@
             "options":["allow-leading-underscore", "check-format","ban-keywords"]
         },
         "object-literal-sort-keys":false,
-        "interface-name":false
+        "interface-name":false,
+        "only-arrow-functions": false
     },
     "rulesDirectory": []
 }
