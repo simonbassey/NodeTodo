@@ -41,4 +41,4 @@ Thumbs.db
 
 #IgnoreLogs
 /Logs
-
+.nyc_output/*

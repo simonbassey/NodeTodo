@@ -4,7 +4,7 @@
   "description": "a firstnode lesson",
   "main": "dist/server.js",
   "scripts": {
-    "test": "mocha -r ts-node/register test/**/*.spec.ts",
+    "test": "nyc mocha -r ts-node/register test/**/*.spec.ts",
     "lint": "eslint .",
     "build-ts": "tsc",
     "start": "npm run serve",
@@ -48,6 +48,7 @@
     "eslint-plugin-import": "^2.18.2",
     "mocha": "^6.2.2",
     "nodemon": "^1.19.1",
+    "nyc": "^14.1.1",
     "sinon": "^7.5.0",
     "tslint": "^5.20.0",
     "typescript": "^3.6.3"
